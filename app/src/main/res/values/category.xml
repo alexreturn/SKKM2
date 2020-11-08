@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>Semua</item>
+        <item>Minat &amp; Bakat</item>
+        <item>Ilmiah &amp; Penalaran</item>
+        <item>Organisasi &amp; Pengembangan</item>
+        <item>Pengabdian Masyarakat</item>
+    </string-array>
+</resources>

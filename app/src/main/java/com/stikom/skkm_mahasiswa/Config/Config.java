@@ -6,6 +6,7 @@ public class Config {
     public static final String USER_URL = URL+"ApiSKKM/getUser.php?nim=";
     public static final String EVENT_URL = URL+"ApiSKKM/getEvent.php";
     public static final String SEMINAR_URL = URL+"ApiSKKM/getSeminar.php";
+    public static final String SKKM_URL = URL+"ApiSKKM/getSKKM.php?nim=";
 
     //////////////////////////////Login/////////////////////////////////////////
 
@@ -15,6 +16,57 @@ public class Config {
     public static final String KEY_EMP_password= "password";
     public static final String KEY_EMP_status= "status";
 
+    //-------------------------------------------------------------------------------
+    public static final String KEY_EVENT_ID= "id";
+    public static final String KEY_EVENT_JUDUL= "judul";
+    public static final String KEY_EVENT_EVENT= "event";
+    public static final String KEY_EVENT_EVENTDATE= "eventdate";
+    public static final String KEY_EVENT_TANGGAL= "tanggal";
+
+    public static final String TAG_EVENT_ID= "id";
+    public static final String TAG_EVENT_JUDUL= "judul";
+    public static final String TAG_EVENT_EVENT= "event";
+    public static final String TAG_EVENT_EVENTDATE= "eventdate";
+    public static final String TAG_EVENT_TANGGAL= "tanggal";
+    //-------------------------------------------------------------------------------
+    public static final String KEY_SEMINAR_ID= "id";
+    public static final String KEY_SEMINAR_JUDUL= "judul";
+    public static final String KEY_SEMINAR_DESKRIPSI= "deskripsi";
+    public static final String KEY_SEMINAR_PEOPLE= "people";
+    public static final String KEY_SEMINAR_IMAGE= "image";
+    public static final String KEY_SEMINAR_SEMINARDATE= "seminarDate";
+    public static final String KEY_SEMINAR_TANGGAL= "tanggal";
+
+    public static final String TAG_SEMINAR_ID= "id";
+    public static final String TAG_SEMINAR_JUDUL= "judul";
+    public static final String TAG_SEMINAR_DESKRIPSI= "deskripsi";
+    public static final String TAG_SEMINAR_PEOPLE= "people";
+    public static final String TAG_SEMINAR_IMAGE= "image";
+    public static final String TAG_SEMINAR_SEMINARDATE= "seminarDate";
+    public static final String TAG_SEMINAR_TANGGAL= "tanggal";
+    //-------------------------------------------------------------------------------
+
+    public static final String KEY_SKKM_id= "id";
+    public static final String KEY_SKKM_nim_user= "nim_user";
+    public static final String KEY_SKKM_judul= "judul";
+    public static final String KEY_SKKM_deskripsi= "deskripsi";
+    public static final String KEY_SKKM_kategori= "kategori";
+    public static final String KEY_SKKM_image= "image";
+    public static final String KEY_SKKM_poin= "poin";
+    public static final String KEY_SKKM_seminarDate= "seminarDate";
+    public static final String KEY_SKKM_tanggal= "tanggal";
+    public static final String KEY_SKKM_status= "status";
+
+    public static final String TAG_SKKM_id= "id";
+    public static final String TAG_SKKM_nim_user= "nim_user";
+    public static final String TAG_SKKM_judul= "judul";
+    public static final String TAG_SKKM_deskripsi= "deskripsi";
+    public static final String TAG_SKKM_kategori= "kategori";
+    public static final String TAG_SKKM_image= "image";
+    public static final String TAG_SKKM_poin= "poin";
+    public static final String TAG_SKKM_seminarDate= "seminarDate";
+    public static final String TAG_SKKM_tanggal= "tanggal";
+    public static final String TAG_SKKM_status= "status";
     //-------------------------------------------------------------------------------
 
     public static final String TAG_JSON_ARRAY="result";

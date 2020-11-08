@@ -16,15 +16,17 @@
 
 
         <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:padding="6dp"
+            android:gravity="center"
             android:background="@drawable/bulat">
 
             <ImageView
-                android:layout_width="fill_parent"
+                android:layout_width="50dp"
                 android:layout_height="fill_parent"
-                android:background="@drawable/ic_baseline_person_24_grey"></ImageView>
+                android:background="@drawable/logostikom"></ImageView>
         </LinearLayout>
 
         <LinearLayout
@@ -89,11 +91,13 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/btnSKKM"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/btnskkm"/>
             <ImageButton
+                android:id="@+id/btnSeminar"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginRight="10dp"

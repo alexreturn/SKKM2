@@ -1,6 +1,7 @@
 package com.stikom.skkm_mahasiswa;
 
         import android.content.Context;
+        import android.content.Intent;
         import android.content.SharedPreferences;
         import android.os.Bundle;
 
@@ -11,6 +12,7 @@ package com.stikom.skkm_mahasiswa;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.ImageButton;
         import android.widget.TextView;
 
         import com.stikom.skkm_mahasiswa.Config.Config;
@@ -18,6 +20,8 @@ package com.stikom.skkm_mahasiswa;
 public class homeFragment extends Fragment {
 
     TextView txtname,txtnim;
+    ImageButton btnSeminar,btnSKKM;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +38,28 @@ public class homeFragment extends Fragment {
 
         txtname.setText(nama);
         txtnim.setText(nim+" - "+jurusan);
+
+
+        btnSeminar=(ImageButton)view.findViewById(R.id.btnSeminar);
+        btnSKKM=(ImageButton)view.findViewById(R.id.btnSKKM);
+
+
+        btnSeminar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), SeminarActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnSKKM.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), SkkmActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

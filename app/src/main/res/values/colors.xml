@@ -9,4 +9,8 @@
 
     <color name="colorNavigationIcon">#dae9f6</color>
     <color name="colorNavigationText">#ffffff</color>
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
 </resources>

@@ -87,5 +87,6 @@
         android:textSize="26sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>
