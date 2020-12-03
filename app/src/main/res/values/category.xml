@@ -2,9 +2,98 @@
 <resources>
     <string-array name="category">
         <item>Semua</item>
-        <item>Minat &amp; Bakat</item>
-        <item>Ilmiah &amp; Penalaran</item>
-        <item>Organisasi &amp; Pengembangan</item>
-        <item>Pengabdian Masyarakat</item>
+        <item>Ilmiah</item>
+        <item>Minat Bakar Dan Olahraga</item>
+        <item>Sosial dan Pengabdian Masyarakat</item>
+        <item>Pengurus Oraganisasi Mahasiswa</item>
+        <item>Kegiatan Wajib</item>
+        <item>Prestasi</item>
+    </string-array>
+
+
+    <string-array name="kategory">
+        <item>Ilmiah</item>
+        <item>Minat Bakat Dan Olahraga</item>
+        <item>Sosial dan Pengabdian Masyarakat</item>
+        <item>Pengurus Oraganisasi Mahasiswa</item>
+        <item>Kegiatan Wajib</item>
+        <item>Prestasi</item>
+    </string-array>
+    <string-array name="Ilmiah">
+        <item>Konfrensi</item>
+        <item>Penelitian/Karya Tulis</item>
+        <item>Kepanitiaan</item>
+        <item>Seminar/Workshop</item>
+    </string-array>
+    <string-array name="Minat_Bakat_Dan_Olahraga">
+        <item>Kepanitiaan</item>
+        <item>Kompetisi/Turnamen</item>
+        <item>Kepanitiaan</item>
+        <item>Seminar/Workshop</item>
+    </string-array>
+    <string-array name="Sosial_dan_Pengabdian_Masyarakat">
+        <item>Kepanitiaan</item>
+        <item>Kerja Sosial</item>
+        <item>Donor Darah</item>
+    </string-array>
+    <string-array name="Pengurus_Oraganisasi_Mahasiswa">
+        <item>BALMA</item>
+        <item>Senat Mahasiswa</item>
+        <item>UKM/HIMAPRODI</item>
+    </string-array>
+
+    <string-array name="Kegiatan_Wajib">
+        <item>Peserta</item>
+    </string-array>
+    <string-array name="Prestasi">
+        <item>Juara 1 2</item>
+        <item>3 Juara 2 2 3 4</item>
+    </string-array>
+
+
+
+
+
+
+
+
+
+
+
+    <string-array name="Konfrensi">
+        <item>Penulis Utama</item>
+        <item>Penyaji</item>
+        <item>Moderator</item>
+    </string-array>
+    <string-array name="penelitian">
+        <item>Perorangan</item>
+        <item>Kelompok</item>
+        <item>Ketua</item>
+        <item>Anggota</item>
+    </string-array>
+    <string-array name="kepanitiaan">
+        <item>Peserta</item>
+        <item>Anggota</item>
+        <item>Koordinator</item>
+        <item>Bendahara</item>
+        <item>Sekretaris</item>
+        <item>Wakil</item>
+        <item>Ketua</item>
+    </string-array>
+    <string-array name="peserta">
+        <item>Peserta</item>
+    </string-array>
+
+    <string-array name="prestasi">
+        <item>Juara 1</item>
+        <item>Juara 2</item>
+        <item>Harapan/Favorit</item>
+    </string-array>
+
+    <string-array name="tingkatan">
+        <item>P.T</item>
+        <item>Reg</item>
+        <item>Nasional</item>
+        <item>Internasional</item>
     </string-array>
 </resources>

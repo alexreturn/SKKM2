@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:layout_marginBottom="10dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/txttgl"
+        android:id="@+id/txtnim"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:layout_weight=".2"
-        android:textColor="#000"
         android:paddingLeft="5dp"
-        android:text="22/20/2020" />
+        android:text="110010161"
+        android:textColor="#000" />
 
     <TextView
-        android:id="@+id/txtjudul"
+        android:id="@+id/txtnama"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".6"
+        android:layout_weight=".5"
         android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="18dp"
         android:singleLine="true"
         android:text="Seminar mencarinbakat" />
 
     <TextView
-        android:id="@+id/txtpoin"
+        android:id="@+id/txtjurusan"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:textColor="#000"
-        android:text="5Poin" />
+        android:layout_weight=".2"
+        android:text="5Poin"
+        android:textColor="#000" />
 </LinearLayout>

@@ -1,13 +1,26 @@
 package com.stikom.skkm_mahasiswa.Config;
 
 public class Config {
-    public static final String URL = "http://192.168.18.31/";
+    public static final String URL = "http://192.168.18.174/";
     public static final String LOGIN_URL = URL+"ApiSKKM/login.php";
     public static final String USER_URL = URL+"ApiSKKM/getUser.php?nim=";
     public static final String EVENT_URL = URL+"ApiSKKM/getEvent.php";
     public static final String SEMINAR_URL = URL+"ApiSKKM/getSeminar.php";
     public static final String SKKM_URL = URL+"ApiSKKM/getSKKM.php?nim=";
+    public static final String getAllUser = URL+"ApiSKKM/getAllUser.php";
 
+    //////////////////////////////USER/////////////////////////////////////////
+    public static final String KEY_USER_nim= "nim";
+    public static final String KEY_USER_nama= "nama";
+    public static final String KEY_USER_alamat= "alamat";
+    public static final String KEY_USER_jurusan= "jurusan";
+    public static final String KEY_USER_level= "level";
+
+    public static final String TAG_USER_nim= "nim";
+    public static final String TAG_USER_nama= "nama";
+    public static final String TAG_USER_alamat= "alamat";
+    public static final String TAG_USER_jurusan= "jurusan";
+    public static final String TAG_USER_level= "level";
     //////////////////////////////Login/////////////////////////////////////////
 
     public static final String KEY_EMP_nim= "nim";
@@ -73,6 +86,8 @@ public class Config {
     public static final String LOGIN_SUCCESS = "success";
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";
     public static final String SHARED_PREF_NAME = "myloginapp";
+    public static final String NIM_DETAIL_SHARED_PREF = "NIMDETAIL";
+    public static final String NAMA_DETAIL_SHARED_PREF = "NAMA";
     public static final String NIM_SHARED_PREF = "NIM";
     public static final String password_SHARED_PREF = "password";
     public static final String nama_SHARED_PREF = "nama";
