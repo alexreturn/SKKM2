@@ -6,14 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,6 +39,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.stikom.skkm_mahasiswa.BEM.adapter.ListViewAdapterBem;
+import com.stikom.skkm_mahasiswa.BEM.adapter.adapterControlBem;
 import com.stikom.skkm_mahasiswa.Config.Config;
 import com.stikom.skkm_mahasiswa.Config.ListViewAdapter;
 import com.stikom.skkm_mahasiswa.Config.RequestHandler;
@@ -59,12 +67,12 @@ public class DetailUserActivity extends AppCompatActivity {
     TextView txtNAMA,txtNIM,textView10;
     ListView lispiu;
     JSONArray result;
-    private String JSON_STRING,ID_REF;
+    private String JSON_STRING,ID_REF,nimm;
     private ProgressDialog loading3;
     SimpleAdapter adapter;
     ImageButton btnBack;
-    ListViewAdapter listViewAdapter;
-    ArrayList<adapterControl> arrayList = new ArrayList<>();
+    ListViewAdapterBem ListViewAdapterBem;
+    ArrayList<adapterControlBem> arrayList = new ArrayList<>();
     Spinner spinner;
     Button buttonTambah;
 
@@ -78,15 +86,17 @@ public class DetailUserActivity extends AppCompatActivity {
     Button btnsimpan;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private static final int REQUEST_WRITE_PERMISSION = 786;
+
     int PICK_IMAGE_REQUEST = 1;
-    Bitmap bitmap;
+    Bitmap bitmap,storebitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_user);
         SharedPreferences sharedPreferences = DetailUserActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String nimm = sharedPreferences.getString(Config.NIM_DETAIL_SHARED_PREF, "null");
+        nimm = sharedPreferences.getString(Config.NIM_DETAIL_SHARED_PREF, "null");
         String namaa = sharedPreferences.getString(Config.NAMA_DETAIL_SHARED_PREF, "null");
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -101,11 +111,16 @@ public class DetailUserActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 String text = spinner.getSelectedItem().toString();
-                if (text.equals("Semua")) {
-                    listViewAdapter.filter("a");
-                    lispiu.clearTextFilter();
-                } else {
-                    listViewAdapter.filter(text);
+                if(arrayList.isEmpty() & text.equals("Semua") ){
+
+                    ListViewAdapterBem.filter("");
+                }else{
+                    if (text.equals("Semua")) {
+                        ListViewAdapterBem.filter("");
+                        lispiu.clearTextFilter();
+                    } else {
+                        ListViewAdapterBem.filter(text);
+                    }
                 }
             }
 
@@ -122,8 +137,7 @@ public class DetailUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent( DetailUserActivity.this, DataMahsiswaActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -136,9 +150,9 @@ public class DetailUserActivity extends AppCompatActivity {
             }
         });
 
-        getJSONSKKM();
 
         initCustomDialog();
+        getJSONSKKM();
     }
     private void initCustomDialog(){
         customDialog = new Dialog(DetailUserActivity.this);
@@ -146,9 +160,16 @@ public class DetailUserActivity extends AppCompatActivity {
         customDialog.setContentView(R.layout.popup_tambah_data);
         customDialog.setCancelable(true);
 
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
         userJudul=customDialog.findViewById(R.id.userJudul);
         editTextPoin=customDialog.findViewById(R.id.editTextPoin);
-
+        textView10=customDialog.findViewById(R.id.textView10);
+        textView10.setText(formattedDate);
         spinnerKategori=customDialog.findViewById(R.id.spinnerKategori);
         spinnerBidang=customDialog.findViewById(R.id.spinnerBidang);
         spinnerPastisipasi=customDialog.findViewById(R.id.spinnerPastisipasi);
@@ -208,9 +229,8 @@ public class DetailUserActivity extends AppCompatActivity {
         });
 
 
-        textView10=customDialog.findViewById(R.id.textView10);
+
         textView10.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
                showDateDialog();
@@ -219,31 +239,119 @@ public class DetailUserActivity extends AppCompatActivity {
 
 
         imageFoto=customDialog.findViewById(R.id.imageFoto);
+//        BitmapDrawable drawable = (BitmapDrawable) imageFoto.getDrawable();
+//        storebitmap = drawable.getBitmap();
         imageFoto.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
+
             @Override
             public void onClick(View view) {
                 if (DetailUserActivity.this.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                } else {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                } else if (DetailUserActivity.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+                }else{
+                    selectImage(DetailUserActivity.this);
                 }
+
             }
         });
 
         btnsimpan=customDialog.findViewById(R.id.btnsimpan);
         btnsimpan.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
-//                TambahLogTanaman();
+                if(userJudul.getText().toString().equals("")|| (userJudul.getText().toString().equals(null))){
+                    Toast.makeText(DetailUserActivity.this, "Judul SKKM harap Diisi", Toast.LENGTH_LONG).show();
+                }else if(textView10.getText().toString().equals("")|| (textView10.getText().toString().equals(null))){
+                    Toast.makeText(DetailUserActivity.this, "Point Harap Diisi", Toast.LENGTH_LONG).show();
+                }else if(textView10.getText().toString().equals("")|| (textView10.getText().toString().equals(null))) {
+                    Toast.makeText(DetailUserActivity.this, "Point Harap Diisi", Toast.LENGTH_LONG).show();
+                }else if (bitmap==null){
+                    Toast.makeText(DetailUserActivity.this, "Foto SKKM harap Diisi", Toast.LENGTH_LONG).show();
+                }else{
+                    customDialog.dismiss();
+                    simpanSKKM();
+                }
             }
         });
-
-
     }
 
+    private void selectImage(Context context) {
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Choose your profile picture");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (options[item].equals("Take Photo")) {
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+
+                } else if (options[item].equals("Choose from Gallery")) {
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public void simpanSKKM() {
+        final String judulskkm = userJudul.getText().toString();
+        final String jmlhpoin= editTextPoin.getText().toString();
+        final String tglnya =textView10.getText().toString();
+        final String kategorinya = spinnerKategori.getSelectedItem().toString();
+        final String bidangnya = spinnerBidang.getSelectedItem().toString();
+        final String partisipasinya = spinnerPastisipasi.getSelectedItem().toString();
+        final String tingkatnya = spinnerTingkatan.getSelectedItem().toString();
+        class TambahData extends AsyncTask<Void, Void, String> {
+            ProgressDialog loading;
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+//                loading = ProgressDialog.show(DetailUserActivity.this, "Proses Kirim Data...", "Wait...", false, false);
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+//                loading.dismiss();
+//                Intent i =new Intent(getApplicationContext(),DetailUserActivity.class);
+//                startActivity(i);
+                finish();
+            }
+            @Override
+            protected String doInBackground(Void... v) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("nim_user", nimm);
+                params.put("judul", judulskkm);
+                params.put("poin", jmlhpoin);
+                params.put("seminarDate", tglnya);
+                params.put("kategori", kategorinya);
+                params.put("bidang", bidangnya);
+                params.put("partisipasi", partisipasinya);
+                params.put("tingkat", tingkatnya);
+                if(bitmap==null){
+                    params.put("image",null);
+                }else{
+                    params.put("image", getStringImage(bitmap));
+                }
+
+                RequestHandler rh = new RequestHandler();
+                String res = rh.sendPostRequest(Config.SIMPANSKKM, params);
+                return res;
+            }
+        }
+        TambahData ae = new TambahData();
+        ae.execute();
+
+    }
     private void showDateDialog(){
         Calendar newCalendar = Calendar.getInstance();
         datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -279,22 +387,23 @@ public class DetailUserActivity extends AppCompatActivity {
                 date = spf.format(newDate);
                 System.out.println(date);
 
-                adapterControl app = new adapterControl(jo.getString(Config.KEY_SKKM_id),
+                adapterControlBem app = new adapterControlBem(jo.getString(Config.KEY_SKKM_id),
                         jo.getString(Config.KEY_SKKM_judul),
                         jo.getString(Config.KEY_SKKM_deskripsi),
                         jo.getString(Config.KEY_SKKM_image),
                         jo.getString(Config.KEY_SKKM_seminarDate),
                         date,
                         jo.getString(Config.KEY_SKKM_poin),
-                        jo.getString(Config.KEY_SKKM_kategori));
+                        jo.getString(Config.KEY_SKKM_kategori),
+                        jo.getString(Config.KEY_SKKM_status));
                 arrayList.add(app);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        listViewAdapter = new ListViewAdapter(this, arrayList);
-        lispiu.setAdapter(listViewAdapter);
+        ListViewAdapterBem = new ListViewAdapterBem(this, arrayList);
+        lispiu.setAdapter(ListViewAdapterBem);
 
     }
     private void getJSONSKKM(){
@@ -318,7 +427,7 @@ public class DetailUserActivity extends AppCompatActivity {
             protected String doInBackground(Void... params) {
                 RequestHandler rh = new RequestHandler();
                 String  s = null;
-                s = rh.sendGetRequest(Config.SKKM_URL+nim);
+                s = rh.sendGetRequest(Config.getSKKMbem+nim);
                 return s;
             }
         }
@@ -327,18 +436,42 @@ public class DetailUserActivity extends AppCompatActivity {
     }
 
 
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            bitmap = (Bitmap) data.getExtras().get("data");
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                       bitmap = (Bitmap) data.getExtras().get("data");
 
-            imageFoto.setImageBitmap(bitmap);
+                        imageFoto.setImageBitmap(bitmap);
+                    }
 
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getContentResolver().query(selectedImage,
+                                    filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
 
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                bitmap=BitmapFactory.decodeFile(picturePath);
+                                imageFoto.setImageBitmap(bitmap);
+                                cursor.close();
+                            }
+                        }
+
+                    }
+                    break;
+            }
         }
     }
     public String getStringImage(Bitmap bmp) {

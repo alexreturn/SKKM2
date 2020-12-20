@@ -53,12 +53,19 @@ public class SkkmActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 String text = spinner.getSelectedItem().toString();
+
+               if(arrayList.isEmpty()  & text.equals("Semua")) {
+                   listViewAdapter.filter("");
+               }else{
                 if (text.equals("Semua")) {
-                    listViewAdapter.filter("a");
-                    lispiu.clearTextFilter();
+                    listViewAdapter.filter("");
+//                    lispiu.clearTextFilter();
+
                 } else {
                     listViewAdapter.filter(text);
                 }
+
+               }
             }
 
             @Override
@@ -74,8 +81,7 @@ public class SkkmActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( SkkmActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

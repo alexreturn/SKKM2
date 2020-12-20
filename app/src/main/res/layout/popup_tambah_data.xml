@@ -101,11 +101,20 @@
 
         <EditText
             android:id="@+id/editTextPoin"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="0"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="Poin SKKM" />
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="POIN" />
     </TableRow>
 
     <TableRow
@@ -148,9 +157,10 @@
 
             <ImageView
                 android:id="@+id/imageFoto"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/ic_baseline_photo_camera_24" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="TODO"
+                app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
             <TextView
                 android:id="@+id/textView11"

@@ -139,7 +139,16 @@
             android:layout_height="wrap_content"
             android:layout_weight=".1"
             android:textColor="#fff"
-            android:text="Poin" /></LinearLayout>
+            android:text="Poin" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".05"
+            android:textColor="#fff"
+            android:text="Ket" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listview"

@@ -8,6 +8,8 @@ public class Config {
     public static final String SEMINAR_URL = URL+"ApiSKKM/getSeminar.php";
     public static final String SKKM_URL = URL+"ApiSKKM/getSKKM.php?nim=";
     public static final String getAllUser = URL+"ApiSKKM/getAllUser.php";
+    public static final String getSKKMbem = URL+"ApiSKKM/getSKKMbem.php?nim=";
+    public static final String SIMPANSKKM = URL+"ApiSKKM/simpanSKKM.php";
 
     //////////////////////////////USER/////////////////////////////////////////
     public static final String KEY_USER_nim= "nim";
@@ -83,6 +85,7 @@ public class Config {
     //-------------------------------------------------------------------------------
 
     public static final String TAG_JSON_ARRAY="result";
+    public static final String TAG_JSON_ARRAY2="result2";
     public static final String LOGIN_SUCCESS = "success";
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";
     public static final String SHARED_PREF_NAME = "myloginapp";

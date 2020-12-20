@@ -40,8 +40,7 @@ public class SeminarActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( SeminarActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

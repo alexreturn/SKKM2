@@ -1,4 +1,4 @@
-package com.stikom.skkm_mahasiswa.Config;
+package com.stikom.skkm_mahasiswa.BEM.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,22 +9,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import com.stikom.skkm_mahasiswa.Config.adapterControl;
 import com.stikom.skkm_mahasiswa.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ListViewAdapter  extends BaseAdapter {
+public class ListViewAdapterBem extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<adapterControl> appList;
-    private ArrayList<adapterControl> myList;
-    private ArrayList<adapterControl> arraylist=null;
+    private List<adapterControlBem> appList;
+    private ArrayList<adapterControlBem> arraylist;
 
-    public ListViewAdapter(Context context, List<adapterControl> appList) {
+    public ListViewAdapterBem(Context context, List<adapterControlBem> appList) {
         this.appList = appList;
         inflater = LayoutInflater.from(context);
         this.arraylist = new ArrayList<>();
@@ -33,6 +32,7 @@ public class ListViewAdapter  extends BaseAdapter {
 
     public class ViewHolder {
         TextView TextTitle, TextSubtitle,ImageIcon;
+        ImageView imageView2;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ListViewAdapter  extends BaseAdapter {
     }
 
     @Override
-    public adapterControl getItem(int position) {
+    public adapterControlBem getItem(int position) {
         return appList.get(position);
     }
 
@@ -55,11 +55,12 @@ public class ListViewAdapter  extends BaseAdapter {
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.row_data_skkm, null);
+            view = inflater.inflate(R.layout.row_data_skkm_bem, null);
 
             holder.TextTitle = view.findViewById(R.id.txttgl);
             holder.TextSubtitle = view.findViewById(R.id.txtjudul);
             holder.ImageIcon = view.findViewById(R.id.txtpoin);
+            holder.imageView2=view.findViewById(R.id.imageView2);
 
             view.setTag(holder);
         } else {
@@ -72,6 +73,12 @@ public class ListViewAdapter  extends BaseAdapter {
         holder.TextSubtitle.setText(appList.get(position).getjudul());
         holder.ImageIcon.setText(appList.get(position).getpoin());
 
+        if(appList.get(position).getstatus()=="1" || appList.get(position).getstatus().equals("1")){
+            holder.imageView2.setBackground(ContextCompat.getDrawable(holder.imageView2.getContext(), R.drawable.stts_ijo));
+        }else{
+            holder.imageView2.setBackground(ContextCompat.getDrawable(holder.imageView2.getContext(), R.drawable.stts_merah));
+        }
+
         return view;
     }
 
@@ -79,11 +86,10 @@ public class ListViewAdapter  extends BaseAdapter {
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         appList.clear();
-        System.out.println("PANAJGN"+charText.length());
         if (charText.length() == 0) {
             appList.addAll(arraylist);
         } else {
-            for (adapterControl an : arraylist) {
+            for (adapterControlBem an : arraylist) {
                 if (an.getkategori().toLowerCase(Locale.getDefault()).contains(charText)) {
                     appList.add(an);
                 }
