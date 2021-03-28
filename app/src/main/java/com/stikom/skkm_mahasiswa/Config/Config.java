@@ -2,15 +2,16 @@ package com.stikom.skkm_mahasiswa.Config;
 
 public class Config {
     public static final String URL = "http://192.168.18.174/";
-    public static final String LOGIN_URL = URL+"ApiSKKM/login.php";
-    public static final String USER_URL = URL+"ApiSKKM/getUser.php?nim=";
-    public static final String EVENT_URL = URL+"ApiSKKM/getEvent.php";
-    public static final String SEMINAR_URL = URL+"ApiSKKM/getSeminar.php";
-    public static final String SKKM_URL = URL+"ApiSKKM/getSKKM.php?nim=";
-    public static final String getAllUser = URL+"ApiSKKM/getAllUser.php";
-    public static final String getSKKMbem = URL+"ApiSKKM/getSKKMbem.php?nim=";
-    public static final String SIMPANSKKM = URL+"ApiSKKM/simpanSKKM.php";
-
+    public static final String URL_FOTO = URL+"ApiSKKM2/";
+    public static final String LOGIN_URL = URL+"ApiSKKM2/login.php";
+    public static final String USER_URL = URL+"ApiSKKM2/getUser.php?nim=";
+    public static final String EVENT_URL = URL+"ApiSKKM2/getEvent.php";
+    public static final String SEMINAR_URL = URL+"ApiSKKM2/getSeminar.php";
+    public static final String SKKM_URL = URL+"ApiSKKM2/getSKKM.php?nim=";
+    public static final String getAllUser = URL+"ApiSKKM2/getAllUser.php";
+    public static final String getSKKMbem = URL+"ApiSKKM2/getSKKMbem.php?nim=";
+    public static final String SIMPANSKKM = URL+"ApiSKKM2/simpanSKKM.php";
+    public static final String simpanPKMproposal = URL+"ApiSKKM2/simpanPKMproposal.php";
     //////////////////////////////USER/////////////////////////////////////////
     public static final String KEY_USER_nim= "nim";
     public static final String KEY_USER_nama= "nama";
@@ -49,7 +50,8 @@ public class Config {
     public static final String KEY_SEMINAR_DESKRIPSI= "deskripsi";
     public static final String KEY_SEMINAR_PEOPLE= "people";
     public static final String KEY_SEMINAR_IMAGE= "image";
-    public static final String KEY_SEMINAR_SEMINARDATE= "seminarDate";
+    public static final String KEY_SEMINAR_STARTDATE= "startDate";
+    public static final String KEY_SEMINAR_ENDDATE= "endDate";
     public static final String KEY_SEMINAR_TANGGAL= "tanggal";
 
     public static final String TAG_SEMINAR_ID= "id";
@@ -57,7 +59,8 @@ public class Config {
     public static final String TAG_SEMINAR_DESKRIPSI= "deskripsi";
     public static final String TAG_SEMINAR_PEOPLE= "people";
     public static final String TAG_SEMINAR_IMAGE= "image";
-    public static final String TAG_SEMINAR_SEMINARDATE= "seminarDate";
+    public static final String TAG_SEMINAR_STARTDATE= "startDate";
+    public static final String TAG_SEMINAR_ENDDATE= "endDate";
     public static final String TAG_SEMINAR_TANGGAL= "tanggal";
     //-------------------------------------------------------------------------------
 
@@ -66,6 +69,8 @@ public class Config {
     public static final String KEY_SKKM_judul= "judul";
     public static final String KEY_SKKM_deskripsi= "deskripsi";
     public static final String KEY_SKKM_kategori= "kategori";
+    public static final String KEY_SKKM_partisipasi= "partisipasi";
+    public static final String KEY_SKKM_tingkat= "tingkat";
     public static final String KEY_SKKM_image= "image";
     public static final String KEY_SKKM_poin= "poin";
     public static final String KEY_SKKM_seminarDate= "seminarDate";
@@ -96,5 +101,10 @@ public class Config {
     public static final String nama_SHARED_PREF = "nama";
     public static final String alamat_SHARED_PREF = "alamat";
     public static final String jurusan_SHARED_PREF = "jurusan";
+    public static final String prodi_SHARED_PREF = "prodi";
+    public static final String angkatan_SHARED_PREF = "angkatan";
+    public static final String semester_SHARED_PREF = "semester";
+    public static final String level_SHARED_PREF = "level";
+    public static final String foto_SHARED_PREF = "foto";
 
 }

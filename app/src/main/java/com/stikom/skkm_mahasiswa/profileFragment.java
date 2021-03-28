@@ -3,6 +3,7 @@ package com.stikom.skkm_mahasiswa;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,14 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.stikom.skkm_mahasiswa.Config.Config;
 
-public class profileFragment extends Fragment {
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
+public class profileFragment extends Fragment {
+    ImageView imageView;
     Button logout;
-    TextView txtname,txtnim,txtAbout;
+    TextView txtname,txtnim,txtAbout,txtAlamat;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,13 +35,24 @@ public class profileFragment extends Fragment {
         String nim = sharedPreferences.getString(Config.NIM_SHARED_PREF, "null");
         String alamat = sharedPreferences.getString(Config.alamat_SHARED_PREF, "null");
         String jurusan = sharedPreferences.getString(Config.jurusan_SHARED_PREF, "null");
+        String foto = sharedPreferences.getString(Config.foto_SHARED_PREF, "null");
 
         txtname=(TextView)view.findViewById(R.id.txtnama);
         txtnim=(TextView)view.findViewById(R.id.txtnim);
         txtAbout=(TextView)view.findViewById(R.id.txtAbout);
+        txtAlamat=(TextView)view.findViewById(R.id.txtAlamat);
+        imageView=(ImageView) view.findViewById(R.id.imageView);
 
         txtname.setText(nama);
         txtnim.setText(nim+" - "+jurusan);
+        txtAlamat.setText(alamat);
+
+
+        if(foto.equals("")||foto==null ) {
+            System.out.println("FOTO KOSONG");
+        }else{
+            Picasso.get().load(Config.URL_FOTO+foto) .transform(new CropCircleTransformation()).into(imageView);
+        }
 
         logout=(Button)view.findViewById(R.id.btnlogout);
 
@@ -62,12 +78,9 @@ public class profileFragment extends Fragment {
 
 
    public void logout(){
-       SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-       SharedPreferences.Editor editor = sharedPreferences.edit();
-       editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
-       editor.putString(Config.NIM_SHARED_PREF, "");
-       editor.putString(Config.password_SHARED_PREF, "");
-       editor.commit();
+
+       SharedPreferences settings = this.getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       settings.edit().clear().commit();
 
        Intent intent = new Intent( this.getActivity(), LoginActivity.class);
        startActivity(intent);

@@ -2,10 +2,12 @@ package com.stikom.skkm_mahasiswa;
 
 import android.app.Activity;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,14 +47,14 @@ import java.util.Map;
 
 public class LoginActivity extends Activity  implements View.OnClickListener  {
 
+    private Dialog customDialog;
     Boolean loggedIn= false;
     Button btnlogin;
     EditText txtNim,txtPassword;
     private ProgressDialog loading;
     int success;
     private String JSON_STRING;
-    String nama_user,alamat,jurusan;
-
+    String nama_user,alamat,jurusan,foto,prodi,angkatan,semester,level;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +63,15 @@ public class LoginActivity extends Activity  implements View.OnClickListener  {
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setContentView(R.layout.activity_login);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         txtNim = (EditText) findViewById(R.id.nim);
         txtPassword = (EditText) findViewById(R.id.password);
 
         btnlogin=(Button)findViewById(R.id.btnlogin);
         btnlogin.setOnClickListener(this);
+
+        initCustomDialog();
+
     };
     @Override
     protected void onResume(){
@@ -111,6 +117,10 @@ public class LoginActivity extends Activity  implements View.OnClickListener  {
 
                                 getUser();
                             }else{
+
+                                customDialog.show();
+
+                                loading.dismiss();
                                 Toast.makeText(LoginActivity.this, "NIM/Password Salah", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -173,6 +183,8 @@ public class LoginActivity extends Activity  implements View.OnClickListener  {
                  nama_user = jo.getString("nama");
                  alamat = jo.getString("alamat");
                  jurusan = jo.getString("jurusan");
+                 foto = jo.getString("foto");
+                 semester = jo.getString("semester");
             }
             SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -180,6 +192,8 @@ public class LoginActivity extends Activity  implements View.OnClickListener  {
             editor.putString(Config.nama_SHARED_PREF, nama_user);
             editor.putString(Config.alamat_SHARED_PREF, alamat);
             editor.putString(Config.jurusan_SHARED_PREF, jurusan);
+            editor.putString(Config.foto_SHARED_PREF, foto);
+            editor.putString(Config.semester_SHARED_PREF, semester);
             editor.commit();
 
             loading.dismiss();
@@ -218,4 +232,11 @@ public class LoginActivity extends Activity  implements View.OnClickListener  {
         gj.execute();
     }
 
+
+    private void initCustomDialog(){
+        customDialog = new Dialog(this);
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        customDialog.setContentView(R.layout.popup_salah_password);
+        customDialog.setCancelable(true);
+    }
 }

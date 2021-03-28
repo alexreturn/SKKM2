@@ -53,19 +53,22 @@ public class SkkmActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 String text = spinner.getSelectedItem().toString();
+                try{
+                   if(arrayList.isEmpty()  & text.equals("Semua")) {
+                       listViewAdapter.filter("");
+                   }else{
+                    if (text.equals("Semua")) {
+                        listViewAdapter.filter("");
+    //                    lispiu.clearTextFilter();
 
-               if(arrayList.isEmpty()  & text.equals("Semua")) {
-                   listViewAdapter.filter("");
-               }else{
-                if (text.equals("Semua")) {
-                    listViewAdapter.filter("");
-//                    lispiu.clearTextFilter();
+                    } else {
+                        listViewAdapter.filter(text);
+                    }
 
-                } else {
-                    listViewAdapter.filter(text);
+                   }
+                }catch (Exception ss){
+
                 }
-
-               }
             }
 
             @Override
@@ -113,11 +116,14 @@ public class SkkmActivity extends AppCompatActivity {
                 adapterControl app = new adapterControl(jo.getString(Config.KEY_SKKM_id),
                                 jo.getString(Config.KEY_SKKM_judul),
                                 jo.getString(Config.KEY_SKKM_deskripsi),
+                                jo.getString(Config.KEY_SKKM_partisipasi),
+                                jo.getString(Config.KEY_SKKM_tingkat),
                                 jo.getString(Config.KEY_SKKM_image),
                                 jo.getString(Config.KEY_SKKM_seminarDate),
                                 date,
                                 jo.getString(Config.KEY_SKKM_poin),
-                                jo.getString(Config.KEY_SKKM_kategori));
+                                jo.getString(Config.KEY_SKKM_kategori),
+                                jo.getString(Config.KEY_SKKM_status));
                 arrayList.add(app);
             }
         } catch (JSONException e) {

@@ -12,6 +12,8 @@
 
     <string name="home">Home</string>
     <string name="event">Event</string>
+    <string name="skkm">SKKM</string>
+    <string name="PKM">PKM</string>
     <string name="history">History</string>
     <string name="account">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->

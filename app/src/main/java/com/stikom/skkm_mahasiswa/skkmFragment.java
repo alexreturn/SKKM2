@@ -1,38 +1,32 @@
 package com.stikom.skkm_mahasiswa;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-        import androidx.annotation.NonNull;
-        import androidx.annotation.Nullable;
-        import androidx.appcompat.app.AppCompatDelegate;
-        import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageButton;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import com.stikom.skkm_mahasiswa.BEM.DataMahsiswaActivity;
+import com.stikom.skkm_mahasiswa.Config.Config;
+import com.stikom.skkm_mahasiswa.Config.RequestHandler;
 
-        import com.squareup.picasso.Picasso;
-        import com.stikom.skkm_mahasiswa.BEM.DataMahsiswaActivity;
-        import com.stikom.skkm_mahasiswa.Config.Config;
-        import com.stikom.skkm_mahasiswa.Config.RequestHandler;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-        import java.util.ArrayList;
-        import java.util.HashMap;
-
-        import jp.wasabeef.picasso.transformations.CropCircleTransformation;
-
-public class homeFragment extends Fragment {
+public class skkmFragment extends Fragment {
 
     TextView txtname,txtnim,JumlahSKKM,JumlahPOIN;
     ImageButton btnSeminar,btnSKKM,btnBOBOT,btnMaster;
@@ -42,8 +36,8 @@ public class homeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        View view = inflater.inflate(R.layout.fragment_skkm, container, false);
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
          nama = sharedPreferences.getString(Config.nama_SHARED_PREF, "null");
          nimuser = sharedPreferences.getString(Config.NIM_SHARED_PREF, "null");
@@ -51,18 +45,54 @@ public class homeFragment extends Fragment {
          jurusan = sharedPreferences.getString(Config.jurusan_SHARED_PREF, "null");
          foto = sharedPreferences.getString(Config.foto_SHARED_PREF, "null");
 
+        JumlahSKKM=(TextView)view.findViewById(R.id.JumlahSKKM);
+        JumlahPOIN=(TextView)view.findViewById(R.id.JumlahPOIN);
 
         txtname=(TextView)view.findViewById(R.id.txtnama);
         txtnim=(TextView)view.findViewById(R.id.txtnim);
-        ImageView imageView=(ImageView) view.findViewById(R.id.imageView);
 
         txtname.setText(nama);
         txtnim.setText(nimuser+" - "+jurusan);
-        if(foto.equals("")||foto==null ) {
-            System.out.println("FOTO KOSONG");
-        }else{
-            Picasso.get().load(Config.URL_FOTO+foto) .transform(new CropCircleTransformation()).into(imageView);
-        }
+
+
+        btnSeminar=(ImageButton)view.findViewById(R.id.btnSeminar);
+        btnSKKM=(ImageButton)view.findViewById(R.id.btnSKKM);
+        btnBOBOT=(ImageButton)view.findViewById(R.id.btnBOBOT);
+        btnMaster=(ImageButton)view.findViewById(R.id.btnMaster);
+
+
+        btnMaster.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), UnggahActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnSeminar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), SeminarActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnSKKM.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), SkkmActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnBOBOT.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), BobotActivity.class);
+                startActivity(intent);
+            }
+        });
         getUser();
         return view;
     }
@@ -87,7 +117,11 @@ public class homeFragment extends Fragment {
 
                 txtname.setText(nama_user);
                 txtnim.setText(nimuser+" - "+jurusan);
-
+                if(LEVEL.equals("BEM")){
+                    btnMaster.setVisibility(View.VISIBLE);
+                }else{
+                    btnMaster.setVisibility(View.GONE);
+                }
 
 //                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 //                SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -103,12 +137,13 @@ public class homeFragment extends Fragment {
                 String jmlskkm = jo.getString("jumlah");
                 String  jmlpoin = jo.getString("JumlahPOIN");
 
+                JumlahSKKM.setText(jmlskkm);
                 if(jmlpoin.equals(null) || jmlpoin.equals("null")){
 
-
+                    JumlahPOIN.setText("0");
                 }else{
 
-
+                    JumlahPOIN.setText(jmlpoin);
                 }
 
             }

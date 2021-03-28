@@ -60,43 +60,84 @@
         android:background="#c4c4c4"
         android:orientation="vertical"></LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:background="@color/colorAccent1"
-        android:orientation="horizontal">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
-        <TextView
-        android:id="@+id/textView4"
-        android:layout_width="1dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".2"
-        android:textColor="#fff"
-        android:text="Tanggal" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".6"
-            android:textColor="#fff"
-            android:singleLine="true"
-            android:text="Seminar" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorAccent1"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".1"
-            android:textColor="#fff"
-            android:text="Poin" /></LinearLayout>
+                <TextView
+                    android:id="@+id/txtno"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingLeft="5dp"
+                    android:text="No." />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal"
+                    android:textColor="#fff" />
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Kegiatan"
+                    android:textColor="#fff" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tingkat"
+                    android:textColor="#fff" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Partisipasi"
+                    android:textColor="#fff" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="SKKM"
+                    android:textColor="#fff" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Status"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
 
 </LinearLayout>

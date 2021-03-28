@@ -18,13 +18,13 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_margin="10dp"
-            android:padding="6dp"
             android:gravity="center"
             android:background="@drawable/bulat">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="fill_parent"
+                android:id="@+id/imageView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/logostikom"></ImageView>
         </LinearLayout>
 
@@ -49,6 +49,13 @@
                 android:text="160030287 - Sistem Informasi "
                 android:textColor="#fff"
                 android:textSize="14dp" />
+            <TextView
+                android:id="@+id/txtAlamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="14dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,17 +76,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Profile"
-            android:layout_margin="10dp"
-            android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
-            android:textColor="#000"/>
-        <TextView
             android:id="@+id/txtAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="About"
+            android:textStyle="bold"
+            android:textSize="16dp"
             android:layout_margin="10dp"
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
             android:textColor="#000"/>

@@ -32,7 +32,7 @@ public class ListViewAdapter  extends BaseAdapter {
     }
 
     public class ViewHolder {
-        TextView TextTitle, TextSubtitle,ImageIcon;
+        TextView txtno,TextTitle, TextSubtitle,ImageIcon,Textpartisipasi,Texttingkat,Textstatus;
     }
 
     @Override
@@ -57,9 +57,14 @@ public class ListViewAdapter  extends BaseAdapter {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.row_data_skkm, null);
 
+            holder.txtno = view.findViewById(R.id.txtno);
             holder.TextTitle = view.findViewById(R.id.txttgl);
             holder.TextSubtitle = view.findViewById(R.id.txtjudul);
+            holder.Textpartisipasi = view.findViewById(R.id.txtpartisipasi);
+            holder.Texttingkat = view.findViewById(R.id.txttingkat);
+            holder.TextSubtitle = view.findViewById(R.id.txtjudul);
             holder.ImageIcon = view.findViewById(R.id.txtpoin);
+            holder.Textstatus = view.findViewById(R.id.txtstatus);
 
             view.setTag(holder);
         } else {
@@ -68,9 +73,20 @@ public class ListViewAdapter  extends BaseAdapter {
 
 
 
+        holder.txtno.setText(position+1+"");
         holder.TextTitle.setText(appList.get(position).getdate());
         holder.TextSubtitle.setText(appList.get(position).getjudul());
         holder.ImageIcon.setText(appList.get(position).getpoin());
+
+        holder.Textpartisipasi.setText(appList.get(position).getpartisipasi());
+        holder.Texttingkat.setText(appList.get(position).gettingkat());
+        if(appList.get(position).getstatus().equals("1")){
+            holder.Textstatus.setText("Menunggu Validasi");
+        }else if(appList.get(position).getstatus().equals("2")){
+            holder.Textstatus.setText("Valid");
+        }else{
+            holder.Textstatus.setText("Menunggu Validasi BEM");
+        }
 
         return view;
     }

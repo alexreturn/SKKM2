@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorAccent1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_baseline_arrow_back_24"></ImageButton>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="UNGGAH SERTIFIKAT"
+            android:textColor="#fff"
+            android:textSize="24dp" />
+    </LinearLayout>
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Masukan Data SKKM"
+                            android:textColor="#000"
+                            android:textSize="24dp" />
+
+                        <EditText
+                            android:id="@+id/userJudul"
+                            android:layout_width="match_parent"
+                            android:hint="Judul SKKM"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:layout_height="wrap_content" />
+
+                        <Spinner
+                            android:id="@+id/spinnerKategori"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/kategory"
+                            android:padding="10dp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerBidang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/Ilmiah"
+                            android:padding="10dp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerPastisipasi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/Konfrensi"
+                            android:padding="10dp" />
+
+
+                        <Spinner
+                            android:id="@+id/spinnerTingkatan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/tingkatan"
+                            android:padding="10dp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/border_hitam"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView10"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:gravity="center"
+                                android:hint="Pilih Tanggal Seminar " />
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/border_hitam"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/imageFoto"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:contentDescription="TODO"
+                                app:srcCompat="@drawable/ic_baseline_photo_camera_24"
+                                tools:ignore="VectorDrawableCompat" />
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:text="Pilih Foto SKKM"
+                                android:gravity="center_horizontal" />
+                        </LinearLayout>
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnsimpan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Simpan"
+                        android:background="@drawable/tombol_round_biru"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+</LinearLayout>
+
+</LinearLayout>

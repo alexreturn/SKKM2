@@ -2,6 +2,7 @@ package com.stikom.skkm_mahasiswa;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
         loadFragment(new homeFragment());
         BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main);
@@ -44,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()){
             case R.id.home_menu:
                 fragment = new homeFragment();
+                break;
+
+            case R.id.skkm_menu:
+                fragment = new skkmFragment();
+                break;
+                case R.id.pkm_menu:
+                fragment = new pkmFragment();
                 break;
             case R.id.search_menu:
                 fragment = new eventFragment();

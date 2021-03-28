@@ -51,15 +51,6 @@
     </string-array>
 
 
-
-
-
-
-
-
-
-
-
     <string-array name="Konfrensi">
         <item>Penulis Utama</item>
         <item>Penyaji</item>
@@ -95,5 +86,17 @@
         <item>Reg</item>
         <item>Nasional</item>
         <item>Internasional</item>
+    </string-array>
+
+
+
+    <string-array name="jenisPKM">
+        <item>PKM-P</item>
+        <item>PKM-K</item>
+        <item>PKM-M</item>
+        <item>PKM-T</item>
+        <item>PKM-KC</item>
+        <item>PKM-AI</item>
+        <item>PKM-GT</item>
     </string-array>
 </resources>

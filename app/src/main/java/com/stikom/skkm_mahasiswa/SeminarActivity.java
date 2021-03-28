@@ -19,7 +19,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class SeminarActivity extends AppCompatActivity {
@@ -48,7 +51,23 @@ public class SeminarActivity extends AppCompatActivity {
         getJSONSeminar();
     }
 
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd HH:mm:ss";
+        String outputPattern = "dd-MMM-yyyy h:mm a";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     private void showSeminar(){
         JSONObject jsonObject = null;
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
@@ -65,9 +84,12 @@ public class SeminarActivity extends AppCompatActivity {
                 String  DESKRIPSI = jo.getString(Config.KEY_SEMINAR_DESKRIPSI);
                 String  PEOPLE = jo.getString(Config.KEY_SEMINAR_PEOPLE);
                 String  IMAGE = jo.getString(Config.KEY_SEMINAR_IMAGE);
-                String  SEMINARDATE = jo.getString(Config.KEY_SEMINAR_SEMINARDATE);
+                String  STARTRDATE = jo.getString(Config.KEY_SEMINAR_STARTDATE);
+                String  ENDRDATE = jo.getString(Config.KEY_SEMINAR_ENDDATE);
                 String  TANGGAL = jo.getString(Config.KEY_SEMINAR_TANGGAL);
 
+//                SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
+//                String datestart = format.format(Date.parse(STARTRDATE));
 
                 HashMap<String, String> employees = new HashMap<>();
                 employees.put(Config.TAG_SEMINAR_ID, ID);
@@ -75,7 +97,8 @@ public class SeminarActivity extends AppCompatActivity {
                 employees.put(Config.TAG_SEMINAR_DESKRIPSI, DESKRIPSI);
                 employees.put(Config.TAG_SEMINAR_PEOPLE, PEOPLE);
                 employees.put(Config.TAG_SEMINAR_IMAGE, IMAGE);
-                employees.put(Config.TAG_SEMINAR_SEMINARDATE, SEMINARDATE);
+                employees.put(Config.TAG_SEMINAR_STARTDATE, parseDateToddMMyyyy(STARTRDATE));
+                employees.put(Config.TAG_SEMINAR_ENDDATE, ENDRDATE);
                 employees.put(Config.TAG_SEMINAR_TANGGAL, TANGGAL);
 
                 list.add(employees);
@@ -89,8 +112,8 @@ public class SeminarActivity extends AppCompatActivity {
 
         adapter = new SimpleAdapter(
                SeminarActivity.this, list, R.layout.row_data_seminar,
-                new String[]{Config.TAG_SEMINAR_JUDUL, Config.TAG_SEMINAR_SEMINARDATE, Config.TAG_SEMINAR_DESKRIPSI,Config.TAG_SEMINAR_PEOPLE,},
-                new int[]{R.id.txtjudul,R.id.txtdate, R.id.txtisi, R.id.txtPerson});
+                new String[]{Config.TAG_SEMINAR_JUDUL, Config.TAG_SEMINAR_STARTDATE, Config.TAG_SEMINAR_DESKRIPSI,Config.TAG_SEMINAR_PEOPLE,},
+                new int[]{R.id.txtjudul,R.id.txtdateS, R.id.txtisi, R.id.txtPerson});
 
         lispiu.setAdapter(adapter);
         lispiu.setOnItemClickListener(new AdapterView.OnItemClickListener() {

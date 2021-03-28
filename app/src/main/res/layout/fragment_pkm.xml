@@ -40,67 +40,67 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtnama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Institut Teknologi dan Bisnis STIKOM Bali"
+                    android:layout_weight="1"
+                    android:text="Program Kreativitas Mahasiswa (PKM) "
                     android:textColor="#fff"
                     android:textAlignment="center"
-                    android:textSize="16dp"
-                    android:gravity="center_horizontal" />
+                    android:textSize="16dp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtnim"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sistem Informasi Satuan Kredit Kegiatan Mahasiswa"
+                    android:text=" STIKOM Bali"
                     android:textColor="#fff"
                     android:textAlignment="center"
                     android:textSize="14dp"
                     android:gravity="center_horizontal" />
             </LinearLayout>
-
         </LinearLayout>
-
-
     </LinearLayout>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:gravity="center"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/border_abu"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:background="@drawable/bulat">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:background="@drawable/businessman"></ImageView>
-        </LinearLayout>
         <TextView
-            android:id="@+id/txtnama"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Ikuti Seleksi PKM"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/tombol_round_abu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unduh Pedoman PKM" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text=""
-            android:textColor="#000"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/txtnim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" "
-            android:textColor="#000"
-            android:textSize="14dp" />
+            android:textColor="#ffff"
+            android:background="@drawable/tombol_round_biru"
+            android:text="Daftar PKM" />
     </LinearLayout>
+</LinearLayout>
+
+
 
 
 
