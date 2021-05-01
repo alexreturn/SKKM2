@@ -37,6 +37,8 @@ public class homeFragment extends Fragment {
     TextView txtname,txtnim,JumlahSKKM,JumlahPOIN;
     ImageButton btnSeminar,btnSKKM,btnBOBOT,btnMaster;
 
+    int panjangdata=0;
+
     private String JSON_STRING;
     String nama_user,alamat,jurusan,nama,nimuser,foto,LEVEL;
     @Nullable
@@ -64,6 +66,7 @@ public class homeFragment extends Fragment {
             Picasso.get().load(Config.URL_FOTO+foto) .transform(new CropCircleTransformation()).into(imageView);
         }
         getUser();
+        getPKM();
         return view;
     }
 
@@ -75,7 +78,7 @@ public class homeFragment extends Fragment {
         try {
             jsonObject = new JSONObject(JSON_STRING);
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
-            JSONArray result2 = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY2);
+//            JSONArray result2 = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY2);
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
@@ -83,7 +86,6 @@ public class homeFragment extends Fragment {
                 alamat = jo.getString("alamat");
                 jurusan = jo.getString("jurusan");
                 foto = jo.getString("foto");
-                LEVEL = jo.getString("level");
 
                 txtname.setText(nama_user);
                 txtnim.setText(nimuser+" - "+jurusan);
@@ -98,20 +100,20 @@ public class homeFragment extends Fragment {
             }
 
 
-            for (int i = 0; i < result2.length(); i++) {
-                JSONObject jo = result2.getJSONObject(i);
-                String jmlskkm = jo.getString("jumlah");
-                String  jmlpoin = jo.getString("JumlahPOIN");
-
-                if(jmlpoin.equals(null) || jmlpoin.equals("null")){
-
-
-                }else{
-
-
-                }
-
-            }
+//            for (int i = 0; i < result2.length(); i++) {
+//                JSONObject jo = result2.getJSONObject(i);
+//                String jmlskkm = jo.getString("jumlah");
+//                String  jmlpoin = jo.getString("JumlahPOIN");
+//
+//                if(jmlpoin.equals(null) || jmlpoin.equals("null")){
+//
+//
+//                }else{
+//
+//
+//                }
+//
+//            }
 
 
         } catch (JSONException e) {
@@ -137,6 +139,52 @@ public class homeFragment extends Fragment {
             protected String doInBackground(Void... params) {
                 RequestHandler rh = new RequestHandler();
                 String s = rh.sendGetRequest(Config.USER_URL+nimuser);
+                return s;
+            }
+        }
+        GetJSON gj = new GetJSON();
+        gj.execute();
+    }
+
+    private void showPKM() {
+
+        JSONObject jsonObject = null;
+        ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+        try {
+            jsonObject = new JSONObject(JSON_STRING);
+            JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
+            panjangdata= result.length();
+
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+               editor.putString(Config.panjangdata_SHARED_PREF, String.valueOf(panjangdata));
+                editor.commit();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getPKM(){
+        class GetJSON extends AsyncTask<Void,Void,String> {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                JSON_STRING = s;
+                showPKM();
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequest(Config.GET_PKM+nimuser);
                 return s;
             }
         }

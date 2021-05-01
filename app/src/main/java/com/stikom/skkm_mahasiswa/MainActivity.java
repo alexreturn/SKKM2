@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.skkm_menu:
                 fragment = new skkmFragment();
                 break;
-                case R.id.pkm_menu:
+            case R.id.pkm_menu:
                 fragment = new pkmFragment();
                 break;
             case R.id.search_menu:

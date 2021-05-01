@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:orientation="horizontal">
 
@@ -15,9 +15,9 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:background="#ffffff"
+            android:gravity="center"
             android:text="TextView"
             android:textAlignment="center"
             app:srcCompat="@drawable/event" />
@@ -25,7 +25,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:orientation="vertical"
         android:padding="3dp">
@@ -41,12 +41,18 @@
             android:textStyle="bold" />
 
 
-
         <TextView
             android:id="@+id/txtisi"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/txtLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_stars_24"
             android:text="TextView"
             android:textColor="#000" />
 
@@ -54,8 +60,16 @@
             android:id="@+id/txtdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:drawableLeft="@drawable/ic_baseline_date_range_24"
+            android:text="TextView"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/txtdate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_date_range_24"
+            android:text="TextView"
             android:textColor="#000" />
 
     </LinearLayout>

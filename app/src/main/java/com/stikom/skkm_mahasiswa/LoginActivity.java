@@ -105,7 +105,7 @@ public class LoginActivity extends Activity  implements View.OnClickListener  {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
+System.out.println("ini testtttt");
                             if(response.equals("success")){
 
                                 SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);

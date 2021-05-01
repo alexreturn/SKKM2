@@ -54,8 +54,8 @@ public class skkmFragment extends Fragment {
         txtname.setText(nama);
         txtnim.setText(nimuser+" - "+jurusan);
 
-
-        btnSeminar=(ImageButton)view.findViewById(R.id.btnSeminar);
+//
+//        btnSeminar=(ImageButton)view.findViewById(R.id.btnSeminar);
         btnSKKM=(ImageButton)view.findViewById(R.id.btnSKKM);
         btnBOBOT=(ImageButton)view.findViewById(R.id.btnBOBOT);
         btnMaster=(ImageButton)view.findViewById(R.id.btnMaster);
@@ -69,14 +69,14 @@ public class skkmFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        btnSeminar.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getContext(), SeminarActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnSeminar.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent( getContext(), SeminarActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         btnSKKM.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -113,15 +113,10 @@ public class skkmFragment extends Fragment {
                 alamat = jo.getString("alamat");
                 jurusan = jo.getString("jurusan");
                 foto = jo.getString("foto");
-                LEVEL = jo.getString("level");
 
                 txtname.setText(nama_user);
                 txtnim.setText(nimuser+" - "+jurusan);
-                if(LEVEL.equals("BEM")){
-                    btnMaster.setVisibility(View.VISIBLE);
-                }else{
-                    btnMaster.setVisibility(View.GONE);
-                }
+
 
 //                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 //                SharedPreferences.Editor editor = sharedPreferences.edit();

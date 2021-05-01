@@ -3,16 +3,21 @@ package com.stikom.skkm_mahasiswa;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -56,6 +61,11 @@ public class daftarPKMActivity extends AppCompatActivity {
     String TampungAngota="";
     private static final int FILE_SELECT_CODE = 0;
     private static final String TAG = "okks ";
+    String URLFileName,NAMAfilenamess;
+    ProgressDialog dialog = null;
+    int serverResponseCode = 0;
+    String upLoadServerUri = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +103,8 @@ public class daftarPKMActivity extends AppCompatActivity {
             }
         });
 
+        txtanggota.setText(nimuser);
+        txtanggota.setEnabled(false);
 
         ImageButton btnBack=(ImageButton)findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -149,28 +161,40 @@ public class daftarPKMActivity extends AppCompatActivity {
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
-                    loading = ProgressDialog.show(daftarPKMActivity.this, "Proses Kirim Data...", "Wait...", false, false);
+//                    loading = ProgressDialog.show(daftarPKMActivity.this, "Proses Kirim Data...", "Wait...", false, false);
                 }
 
                 @Override
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
-//                loading.dismiss();
-//                Intent i =new Intent(getApplicationContext(),DetailUserActivity.class);
+                    dialog = ProgressDialog.show(daftarPKMActivity.this, "", "Uploading file...", true);
+
+                    new Thread(new Runnable() {
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                }
+                            });
+
+                            uploadFile(URLFileName);
+
+                        }
+                    }).start();
+//                Intent i =new Intent(getApplicationContext(),MainActivity.class);
 //                startActivity(i);
-                    finish();
+//                    finish();
                 }
 
                 @Override
                 protected String doInBackground(Void... v) {
                     HashMap<String, String> params = new HashMap<>();
-                    params.put("nim_ketua", anggota);
+                    params.put("nim_ketua", nimuser);
                     params.put("judul", judulPKM);
-                    params.put("jenis_pkm", spinnerJenisPKM);
+                    params.put("jenis", spinnerJenisPKM);
                     params.put("email", email);
                     params.put("no_tlp", tlp);
+                    params.put("doc", NAMAfilenamess);
                     params.put("anggota", TampungAngota);
-                    params.put("nama_file", judulPKM);
 
 
                     RequestHandler rh = new RequestHandler();
@@ -203,158 +227,132 @@ public class daftarPKMActivity extends AppCompatActivity {
     }
 
     private void showFileChooser() {
-        Intent intent = new Intent();
-        //sets the select file to all types of files
-        intent.setType("*/*");
-        //allows to select data and return it
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        //starts new activity to select file and return data
-        startActivityForResult(Intent.createChooser(intent,"Choose File to Upload.."),FILE_SELECT_CODE);
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.setType("*/*");
+        startActivityForResult(i, FILE_SELECT_CODE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == FILE_SELECT_CODE){
-                if(data == null){
-                    //no data present
-                    return;
-                }
-
-
-                Uri selectedFileUri = data.getData();
-                selectedFilePath = FilePath.getPath(this,selectedFileUri);
-                Log.i(TAG,"Selected File Path:" + selectedFilePath);
-
-                if(selectedFilePath != null && !selectedFilePath.equals("")){
-                    filename.setText(selectedFilePath);
-                }else{
-                    Toast.makeText(this,"Cannot upload file to server",Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
+       String URLFileName2 = data.getData().getLastPathSegment();
+        URLFileName=URLFileName2.substring(URLFileName2.lastIndexOf(":")+1);
+         NAMAfilenamess=URLFileName2.substring(URLFileName2.lastIndexOf("/")+1);
+        System.out.println(NAMAfilenamess+"File Name: \n" + URLFileName + "\n");
     }
 
-    //android upload file to server
-    public int uploadFile(final String selectedFilePath){
+    @SuppressLint("LongLogTag")
+    public int uploadFile(String sourceFileUri) {
 
-        int serverResponseCode = 0;
 
-        HttpURLConnection connection;
-        DataOutputStream dataOutputStream;
+        String fileName = sourceFileUri;
+
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
-
-
-        int bytesRead,bytesAvailable,bufferSize;
+        int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;
         int maxBufferSize = 1 * 1024 * 1024;
-        File selectedFile = new File(selectedFilePath);
+        File sourceFile = new File(sourceFileUri);
 
-
-        String[] parts = selectedFilePath.split("/");
-        final String fileName = parts[parts.length-1];
-
-        if (!selectedFile.isFile()){
-//            dialog.dismiss();
+        if (!sourceFile.isFile()) {
 
             runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
-                    filename.setText("Source File Doesn't Exist: " + selectedFilePath);
                 }
             });
             return 0;
-        }else{
-            try{
-                FileInputStream fileInputStream = new FileInputStream(selectedFile);
-                URL url = new URL(Config.simpanPKMproposal);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);//Allow Inputs
-                connection.setDoOutput(true);//Allow Outputs
-                connection.setUseCaches(false);//Don't use a cached Copy
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Connection", "Keep-Alive");
-                connection.setRequestProperty("ENCTYPE", "multipart/form-data");
-                connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-                connection.setRequestProperty("uploaded_file",selectedFilePath);
-
-                //creating new dataoutputstream
-                dataOutputStream = new DataOutputStream(connection.getOutputStream());
-
-                //writing bytes to data outputstream
-                dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
-                        + selectedFilePath + "\"" + lineEnd);
-
-                dataOutputStream.writeBytes(lineEnd);
-
-                //returns no. of bytes present in fileInputStream
+        }
+        else
+        {
+            try {
+                // open a URL connection to the Servlet
+                FileInputStream fileInputStream = new FileInputStream(sourceFile);
+                URL url = new URL(Config.upLoadServerUri);
+                // Open a HTTP  connection to  the URL
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); // Allow Inputs
+                conn.setDoOutput(true); // Allow Outputs
+                conn.setUseCaches(false); // Don't use a Cached Copy
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Connection", "Keep-Alive");
+                conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                conn.setRequestProperty("uploaded_file", fileName);
+                dos = new DataOutputStream(conn.getOutputStream());
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                dos.writeBytes("Content-Disposition: form-data; name=uploaded_file;filename="
+                        + fileName +   lineEnd);
+                dos.writeBytes(lineEnd);
+                // create a buffer of  maximum size
                 bytesAvailable = fileInputStream.available();
-                //selecting the buffer size as minimum of available bytes or 1 MB
-                bufferSize = Math.min(bytesAvailable,maxBufferSize);
-                //setting the buffer as byte array of size of bufferSize
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
                 buffer = new byte[bufferSize];
-
-                //reads bytes from FileInputStream(from 0th index of buffer to buffersize)
-                bytesRead = fileInputStream.read(buffer,0,bufferSize);
-
-                //loop repeats till bytesRead = -1, i.e., no bytes are left to read
-                while (bytesRead > 0){
-                    //write the bytes read from inputstream
-                    dataOutputStream.write(buffer,0,bufferSize);
+                // read file and write it into form...
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                while (bytesRead > 0) {
+                    dos.write(buffer, 0, bufferSize);
                     bytesAvailable = fileInputStream.available();
-                    bufferSize = Math.min(bytesAvailable,maxBufferSize);
-                    bytesRead = fileInputStream.read(buffer,0,bufferSize);
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
                 }
+                // send multipart form data necesssary after file data...
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                dataOutputStream.writeBytes(lineEnd);
-                dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                // Responses from the server (code and message)
+                serverResponseCode = conn.getResponseCode();
+                String serverResponseMessage = conn.getResponseMessage();
 
-                serverResponseCode = connection.getResponseCode();
-                String serverResponseMessage = connection.getResponseMessage();
+                Log.i("uploadFile", "HTTP Response is : "
+                        + serverResponseMessage + ": " + serverResponseCode);
 
-                Log.i(TAG, "Server Response is: " + serverResponseMessage + ": " + serverResponseCode);
-
-                //response code of 200 indicates the server status OK
                 if(serverResponseCode == 200){
+
                     runOnUiThread(new Runnable() {
-                        @Override
                         public void run() {
-                            filename.setText("File Upload completed.\n\n You can see the uploaded file here: \n\n" + "http://coderefer.com/extras/uploads/"+ fileName);
+                            dialog.dismiss();
+                            Intent i =new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(i);
+                            Toast.makeText(daftarPKMActivity.this, "File Upload Complete.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
 
-                //closing the input and output streams
+                //close the streams //
                 fileInputStream.close();
-                dataOutputStream.flush();
-                dataOutputStream.close();
+                dos.flush();
+                dos.close();
 
+            } catch (MalformedURLException ex) {
 
+                ex.printStackTrace();
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
                 runOnUiThread(new Runnable() {
-                    @Override
                     public void run() {
-                        Toast.makeText(daftarPKMActivity.this,"File Not Found",Toast.LENGTH_SHORT).show();
+
+
                     }
                 });
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                Toast.makeText(daftarPKMActivity.this, "URL error!", Toast.LENGTH_SHORT).show();
 
-            } catch (IOException e) {
+
+            } catch (Exception e) {
+
                 e.printStackTrace();
-                Toast.makeText(daftarPKMActivity.this, "Cannot Read/Write File!", Toast.LENGTH_SHORT).show();
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+
+                    }
+                });
             }
-//            dialog.dismiss();
             return serverResponseCode;
-        }
 
+        } // End else block
     }
 }

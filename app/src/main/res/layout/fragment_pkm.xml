@@ -48,7 +48,8 @@
                     android:text="Program Kreativitas Mahasiswa (PKM) "
                     android:textColor="#fff"
                     android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:gravity="center_horizontal" />
 
                 <TextView
                     android:id="@+id/txtnim"
@@ -78,25 +79,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Ikuti Seleksi PKM"
+            android:text="Anda belum mengikuti PKM"
+            android:textColor="#000000"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
-        <Button
-            android:id="@+id/button2"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/tombol_round_abu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Unduh Pedoman PKM" />
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="#ffff"
-            android:background="@drawable/tombol_round_biru"
-            android:text="Daftar PKM" />
+            android:textStyle="bold" />
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/tombol_round_abu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Unduh Pedoman PKM" />-->
+<!--        <Button-->
+<!--            android:id="@+id/button3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:textColor="#ffff"-->
+<!--            android:background="@drawable/tombol_round_biru"-->
+<!--            android:text="Daftar PKM" />-->
     </LinearLayout>
 </LinearLayout>
 

@@ -12,7 +12,7 @@ public class DaftarBobotActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bobot);
+        setContentView(R.layout.activity_bobot_foto);
 
 
         ImageButton btnBack=(ImageButton)findViewById(R.id.btnBack);

@@ -58,10 +58,12 @@ public class eventFragment extends Fragment {
                 JSONObject jo = result.getJSONObject(i);
 
                 String  ID = jo.getString(Config.KEY_EVENT_ID);
-                String  JUDUL = jo.getString(Config.KEY_EVENT_JUDUL);
-                String  EVENT = jo.getString(Config.KEY_EVENT_EVENT);
-                String  EVENTDATE = jo.getString(Config.KEY_EVENT_EVENTDATE);
-                String  TANGGAL = jo.getString(Config.KEY_EVENT_TANGGAL);
+                String  JUDUL = jo.getString("namaKegiatan");
+                String  EVENT = jo.getString("keterangan");
+                String  EVENTDATE = jo.getString("tanggalMulai");
+                String  TANGGAL = jo.getString("tanggalSelesai");
+                String  LEVEL = jo.getString("namaSubJenis");
+                String  LEVEL2 = jo.getString("namaTingkat");
 
 
                 HashMap<String, String> employees = new HashMap<>();
@@ -70,6 +72,7 @@ public class eventFragment extends Fragment {
                 employees.put(Config.TAG_EVENT_EVENT, EVENT);
                 employees.put(Config.TAG_EVENT_EVENTDATE, EVENTDATE);
                 employees.put(Config.TAG_EVENT_TANGGAL, TANGGAL);
+                employees.put(Config.TAG_EVENT_LEVEL, LEVEL+"\n"+LEVEL2);
                 list.add(employees);
             }
 
@@ -81,8 +84,8 @@ public class eventFragment extends Fragment {
 
         adapter = new SimpleAdapter(
                 getActivity(), list, R.layout.row_data_event,
-                new String[]{Config.TAG_EVENT_JUDUL, Config.TAG_EVENT_EVENTDATE, Config.TAG_EVENT_EVENT,},
-                new int[]{R.id.txtjudul,R.id.txtdate, R.id.txtisi});
+                new String[]{Config.TAG_EVENT_JUDUL,Config.TAG_EVENT_LEVEL, Config.TAG_EVENT_EVENTDATE,Config.TAG_EVENT_TANGGAL, Config.TAG_EVENT_EVENT,},
+                new int[]{R.id.txtjudul,R.id.txtLevel,R.id.txtdate,R.id.txtdate2, R.id.txtisi});
 
         lispiu.setAdapter(adapter);
         lispiu.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -161,12 +161,13 @@
                 android:layout_height="120dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/btnskkm"/>
+
             <ImageButton
-                android:id="@+id/btnSeminar"
+                android:id="@+id/btnMaster"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/btnseminar"/>
+                android:background="@drawable/master" />
 
 
         </LinearLayout>
@@ -185,12 +186,6 @@
                 android:layout_height="120dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/btnbobot"/>
-            <ImageButton
-                android:id="@+id/btnMaster"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/master"/>
 
 
         </LinearLayout>

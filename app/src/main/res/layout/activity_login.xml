@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent1"
+    android:background="@drawable/loginform"
     android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:scrollbarAlwaysDrawVerticalTrack="true">
 
     <RelativeLayout
@@ -13,7 +15,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="80dp"
-        android:background="#fff"
         android:elevation="4dp"
         android:orientation="vertical"
         android:padding="20dp"
@@ -30,10 +31,10 @@
                 <EditText
                     android:id="@+id/nim"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:drawableLeft="@drawable/ic_baseline_person_24_grey"
                     android:hint=" NIM"
-                    android:textColorHint="#c4c4c4"
+                    android:background="@drawable/tombol_round_abu"
                     android:singleLine="true"
                     android:maxLength="9"
                     android:inputType="number" />
@@ -41,10 +42,10 @@
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginTop="16dp"
+                    android:background="@drawable/tombol_round_abu"
                     android:singleLine="true"
-                    android:textColorHint="#c4c4c4"
                     android:password="true"
                     android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
                     android:hint=" Password" />
@@ -61,38 +62,24 @@
                 android:id="@+id/btnlogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="22dp"
-                android:background="#0C448A"
+                android:background="@drawable/tombol_round_biru"
                 android:text="Login"
+                android:layout_marginTop="16dp"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:text="Versi 1.0 "
+                android:gravity="center_horizontal" />
         </LinearLayout>
+
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/user_profile_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/login_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/background_profile"
-        android:elevation="4dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logostikom" />
 
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:gravity="center_horizontal"
-        android:text="SISTEM INFORMASI SKKM "
-        android:textColor="#fff"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
 </RelativeLayout>

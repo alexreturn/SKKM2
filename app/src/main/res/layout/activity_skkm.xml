@@ -29,6 +29,12 @@
             android:text="SKKM"
             android:textColor="#fff"
             android:textSize="24dp" />
+
+        <Button
+            android:id="@+id/idBtnGeneratePDF"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/downloadpdf"></Button>
     </LinearLayout>
 
     <LinearLayout

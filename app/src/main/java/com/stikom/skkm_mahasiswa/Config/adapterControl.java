@@ -30,16 +30,16 @@ public class adapterControl {
         String getid() {
             return this.id;
         }
-        String getjudul() {
+    public  String getjudul() {
             return judul;
         }
         String getdeskripsi() {
             return deskripsi;
         }
-        String getpartisipasi() {
+    public    String getpartisipasi() {
             return partisipasi;
         }
-        String gettingkat() {
+    public  String gettingkat() {
             return tingkat;
         }
         String getimage() {
@@ -51,7 +51,7 @@ public class adapterControl {
         String getdate() {
             return date;
         }
-        String getpoin() {
+        public String getpoin() {
             return poin;
         }
         String getkategori() {
