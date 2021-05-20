@@ -13,8 +13,9 @@ public class adapterControl {
         private String kategori;
         private String poin;
         private String status;
+        private String persetujuan;
 
-    public adapterControl(String id, String judul, String deskripsi, String partisipasi, String tingkat, String image, String seminardate, String date, String poin, String kategori, String status) {
+    public adapterControl(String id, String judul, String deskripsi, String partisipasi, String tingkat, String image, String seminardate, String date, String poin, String kategori, String status, String persetujuan) {
             this.id = id;
             this.judul = judul;
             this.deskripsi = deskripsi;
@@ -26,6 +27,7 @@ public class adapterControl {
             this.poin = poin;
             this.kategori = kategori;
             this.status = status;
+            this.persetujuan = persetujuan;
         }
         String getid() {
             return this.id;
@@ -54,11 +56,14 @@ public class adapterControl {
         public String getpoin() {
             return poin;
         }
-        String getkategori() {
+        public String getkategori() {
             return kategori;
         }
-        String getstatus() {
+        public String getstatus() {
             return status;
+        }
+        public String getpersetujuan() {
+            return persetujuan;
         }
 
 

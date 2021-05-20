@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -196,7 +197,6 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                 try{
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
 
                     Object item = parent.getItemAtPosition(pos);
                     System.out.println("pilihan "+item);
@@ -217,6 +217,24 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
         });
 
         pencarianJudul=findViewById(R.id.autoCompleteTextView);
+        pencarianJudul.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    pencarianJudul.showDropDown();
+
+            }
+        });
+
+        pencarianJudul.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                pencarianJudul.showDropDown();
+                return false;
+            }
+        });
         pencarianJudul.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -263,7 +281,6 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
         spinnerBidang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 try{
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
                     String iniid = arrayListSpinBidangID.get(pos);
                     getSubBidang(iniid);
                     System.out.println("INI Bidang coy "+iniid);
@@ -279,13 +296,12 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
         spinnerKegiatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 try{
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
                     String kegiatan = arrayListSpinKegiatan.get(pos);
                     String iniid = arrayListSpinKegiatanID.get(pos);
                     idKegiatan=iniid;
                     inikegiatan=kegiatan;
                     System.out.println(kegiatan+" INI Kegiatan coy "+iniid);
-                    if(idKegiatan=="13" || idKegiatan.equals("13")){
+                    if(idKegiatan=="6" || idKegiatan.equals("6")){
                         ViewGroup.LayoutParams params3 = linePKM.getLayoutParams();
                         params3.height =   LinearLayout.LayoutParams.WRAP_CONTENT;
                         linePKM.setLayoutParams(params3);
@@ -306,7 +322,6 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
         spinnerTingkat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 try{
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
                     String iniid = arrayListSpinTingkatID.get(pos);
                     idTingkat=iniid;
                     System.out.println("INI TINGKAT coy "+iniid);
@@ -345,20 +360,31 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
             public void onClick(View view) {
                 if(INIidkegiatan.equals("")|| (INIidkegiatan.equals(null))){
                     Toast.makeText(UnggahActivity.this, "Judul SKKM harap Diisi", Toast.LENGTH_LONG).show();
-                }else if (bitmap==null){
+                }else if (bitmap==null) {
                     Toast.makeText(UnggahActivity.this, "Foto SKKM harap Diisi", Toast.LENGTH_LONG).show();
+                }else if (jumlahPoin.getText().toString().equals("0")){
+                    AlertDialog alertDialog = new AlertDialog.Builder(UnggahActivity.this).create();
+                    alertDialog.setTitle("Data SKKM salah");
+                    alertDialog.setMessage("Silahkan cek kembali data SKKM!");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    Toast.makeText(UnggahActivity.this, "Data SKKM salah", Toast.LENGTH_LONG).show();
                 }else{
                     if((custom=="true" || custom.equals("true")) && !idKegiatan.equals("13") ) {
                         System.out.println(inikegiatan+"SATU");
                         simpanSKKMCustom();
-                    }else if(idKegiatan=="13" || idKegiatan.equals("13")){
+                    }else if(idKegiatan=="6" || idKegiatan.equals("6")){
                         simpanSKKMCustomPKM();
                         System.out.println(inikegiatan+"DUA");
 //                        simpanPKM();
                     }else{
-
                         System.out.println("TIGA");
-//                        simpanSKKM();
+                        simpanSKKM();
                     }
 
                 }
@@ -390,7 +416,7 @@ public class UnggahActivity extends AppCompatActivity implements TextWatcher {
             LinearSpinner.setLayoutParams(params2);
         }
 
-     if(idKegiatan=="13" || idKegiatan.equals("13")){
+     if(idKegiatan=="6" || idKegiatan.equals("6")){
          ViewGroup.LayoutParams params3 = linePKM.getLayoutParams();
          params3.height =   LinearLayout.LayoutParams.WRAP_CONTENT;
          linePKM.setLayoutParams(params3);

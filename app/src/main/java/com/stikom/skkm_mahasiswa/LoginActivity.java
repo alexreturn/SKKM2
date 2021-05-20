@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -121,7 +122,8 @@ System.out.println("ini testtttt");
                                 customDialog.show();
 
                                 loading.dismiss();
-                                Toast.makeText(LoginActivity.this, "NIM/Password Salah", Toast.LENGTH_LONG).show();
+
+//                                Toast.makeText(LoginActivity.this, "NIM/Password Salah", Toast.LENGTH_LONG).show();
                             }
                         }
                     },

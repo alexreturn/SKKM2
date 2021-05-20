@@ -83,7 +83,7 @@ public class ListViewAdapter  extends BaseAdapter {
         if(appList.get(position).getstatus().equals("1")){
             holder.Textstatus.setText("Menunggu Validasi");
         }else if(appList.get(position).getstatus().equals("2")){
-            holder.Textstatus.setText("Valid");
+            holder.Textstatus.setText(appList.get(position).getpersetujuan());
         }else{
             holder.Textstatus.setText("Menunggu Validasi BEM");
         }
